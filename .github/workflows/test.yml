@@ -22,5 +22,5 @@ jobs:
         working-directory: ./L5W6-main
 
       - name: Build Docker image
-        run: docker build -t Devpipe .
+        run: docker build -t devpipe .
         working-directory: ./L5W6-main
