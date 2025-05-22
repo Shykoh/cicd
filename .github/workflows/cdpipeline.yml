@@ -24,14 +24,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker image
-        run: docker pull Shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
+        run: docker pull shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
 
       - name: Deploy to Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
-          DOCKER_IMAGE: Shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
+          DOCKER_IMAGE: shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
