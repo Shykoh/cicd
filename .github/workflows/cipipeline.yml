@@ -27,7 +27,7 @@ jobs:
       #  working-directory: ./L5W6-main
 
       - name: Build Docker image
-        run: docker build -t shykoh/devpipe:${{ github.sha }} .
+        run: docker build -t docker.io/shykoh/devpipe:${{ github.sha }} .
         working-directory: ./L5W6-main
 
       - name: Log in to Docker Hub
