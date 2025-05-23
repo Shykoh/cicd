@@ -7,13 +7,15 @@ beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
   await initDatabase(mongoUri);
-});
+  await mongoose.connection.dropDatabase();
+}, 30000);
 
 beforeEach(async () => {
-  await mongoose.connection.dropDatabase();
 });
 
 afterAll(async () => {
   await mongoose.connection.close();
+  if (mongoServer) {
   await mongoServer.stop();
+  }
 });
