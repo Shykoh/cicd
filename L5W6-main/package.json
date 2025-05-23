@@ -19,6 +19,13 @@
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "supertest": "7.1.1",
+    "mongodb-memory-server": "10.1.4"
+  },
+  "jest": {
+    "testEnviroment":"node",
+    "testMatch": ["<rootDir>/tests/**/*.test.js"],
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"]
   }
 }
