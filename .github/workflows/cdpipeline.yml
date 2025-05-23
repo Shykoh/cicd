@@ -29,7 +29,8 @@ jobs:
       - name: Terraform Apply
         id: terraform_apply
         run: |
-          terraform apply -auto-approve
+          terraform apply -auto-approve -no-color -var-"image_tag=${{ github.event.workflow_run.head_sha }}"
+          echo "deployment_host_ip=$(terraform output -raw deployment_host_ip)" >> "$GITHUB_OUTPUT"
         working-directory: ./terraform
 
       - name: Log in to Docker Hub
