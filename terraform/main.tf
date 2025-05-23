@@ -19,7 +19,7 @@ resource "docker_image" "app" {
 
   build {
     context    = "../L5W6-main"
-    dockerfile = "../L5W6-main/Dockerfile"
+    dockerfile = "Dockerfile"
   }
 }
 
