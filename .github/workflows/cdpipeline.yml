@@ -17,6 +17,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./terraform
+
+      - name: Terraform Apply
+        id: terraform_apply
+        run: |
+          terraform apply -auto-approve
+          echo "deployment_host_ip=$(terraform output -raw deployment_host_ip)" >> "$GITHUB_OUTPUT"
+        working-directory: ./terraform
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -24,14 +40,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull Docker image
-        run: docker pull shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
+        run: docker pull docker.io/shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
 
       - name: Deploy to Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_HOST: ${{ steps.terraform_apply.outputs.deployment_host_ip }}
           SSH_USER: ${{ secrets.SSH_USER }}
-          DOCKER_IMAGE: shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
+          DOCKER_IMAGE: docker.io/shykoh/devpipe:${{ github.event.workflow_run.head_sha }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
@@ -43,3 +59,4 @@ jobs:
             docker pull ${{ env.DOCKER_IMAGE }}
             docker run -d --name devpipe-app -p 80:3000 ${{ env.DOCKER_IMAGE }}
           "
+          

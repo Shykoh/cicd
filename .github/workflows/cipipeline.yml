@@ -22,9 +22,9 @@ jobs:
         run: npm install
         working-directory: ./L5W6-main
 
-      #- name: Run Tests
-      #  run: npm test
-      #  working-directory: ./L5W6-main
+      - name: Run Tests
+        run: npm test
+        working-directory: ./L5W6-main
 
       - name: Build Docker image
         run: docker build -t docker.io/shykoh/devpipe:${{ github.sha }} .
