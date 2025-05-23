@@ -28,7 +28,7 @@ resource "docker_container" "app" {
   image = docker_image.app.name
 
   ports {
-    internal = 3000
+    internal = 1210
     external = 10048
   }
 
