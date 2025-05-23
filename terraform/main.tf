@@ -18,8 +18,8 @@ resource "docker_image" "app" {
   name = "shykoh/devpipe:${var.image_tag}"
 
   build {
-    context    = "../"
-    dockerfile = "../Dockerfile"
+    context    = "../L5W6-main"
+    dockerfile = "../L5W6-main/Dockerfile"
   }
 }
 

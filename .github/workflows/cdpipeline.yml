@@ -30,7 +30,6 @@ jobs:
         id: terraform_apply
         run: |
           terraform apply -auto-approve
-          echo "deployment_host_ip=$(terraform output -raw deployment_host_ip)" >> "$GITHUB_OUTPUT"
         working-directory: ./terraform
 
       - name: Log in to Docker Hub
@@ -57,6 +56,6 @@ jobs:
             docker stop devpipe-app || true
             docker rm devpipe-app || true
             docker pull ${{ env.DOCKER_IMAGE }}
-            docker run -d --name devpipe-app -p 80:3000 ${{ env.DOCKER_IMAGE }}
+            docker run -d --name devpipe-app -p 80:1210 ${{ env.DOCKER_IMAGE }}
           "
           
