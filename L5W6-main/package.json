@@ -24,7 +24,7 @@
     "mongodb-memory-server": "10.1.4"
   },
   "jest": {
-    "testEnviroment":"node",
+    "testEnvironment":"node",
     "testMatch": ["<rootDir>/tests/**/*.test.js"],
     "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"]
   }

@@ -10,8 +10,6 @@ const Student = mongoose.model("Student", studentSchema);
 const initDatabase = async (mongoUri) => {
     try {
         await mongoose.connect(mongoUri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
         });
         console.log("MongoDB Connected");
     } catch (err) {
